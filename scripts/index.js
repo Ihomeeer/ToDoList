@@ -1,8 +1,8 @@
 import colors from './utils/colors.js';
 import weekendPlans from './utils/weekendPlans.js';
 
-const list = document.querySelector('.list');
-const input = document.querySelector('.input__field');
+const elementsList = document.querySelector('.list');
+const textInput = document.querySelector('.input__field');
 const createBtn = document.querySelector('.input__create-button');
 
 const deleteAllBtn = document.querySelector('.footer__delete-button');
@@ -22,16 +22,43 @@ const getItem = () => {
   return bulkItem;
 }
 
-const createNewItem = () => {
+//Создать новый элемент в списке
+const createNewItem = (inp) => {
   const element = getItem();
   const elementText = element.querySelector('.list__item-name');
   const elementBody = element.querySelector('.list__item');
-  elementText.textContent = input.value;
-  elementBody.style.backgroundColor = colors.colors[getRandomFloat(0, 9)];
-  input.value = '';
+  addColorToItem(elementBody);
+  // console.log(inp)
+  // console.log(inp.value)
+  addTextToItem(elementText, inp.value);
   makeDeleteItemBtn(elementBody);
-  list.append(element);
+  addElementToList(element, elementsList);
+}
 
+//Функция, создающая новый элемент в списке и очищающая инпут
+function addNewItem (inp) {
+  createNewItem(inp);
+  clearTextInput(inp);
+}
+
+//Функция очищения инпута
+const clearTextInput = (input) => {
+  input.value = '';
+}
+
+//Передача текста из инпута в жлемент списка
+const addTextToItem = (elem, source) => {
+  elem.textContent = source;
+}
+
+//окраска фона элемента
+const addColorToItem = (elem) => {
+  elem.style.backgroundColor = colors.colors[getRandomFloat(0, 9)];
+}
+
+//Добавление элемента в список
+const addElementToList = (elem, list) => {
+  list.prepend(elem);
 }
 
 const makeDeleteItemBtn = (elem) => {
@@ -60,15 +87,19 @@ const deleteAllItems = () => {
 
 //Добавление пунктов для прокрастинации для кнопки "Забить"
 
-const makeWeekend = () => {
-  deleteAllItems();
-  for (let i=0; i<3; i++) {
-
-  }
-}
+// const makeWeekend = () => {
+//   deleteAllItems();
+//   for (let i=0; i<3; i++) {
+//     createNewItem(weekendPlans[i])
+//   }
+// }
 
 
 //---------Слушатели---------
-createBtn.addEventListener('click', createNewItem);
+createBtn.addEventListener('click', () => {
+  addNewItem(textInput);
+});
 
 deleteAllBtn.addEventListener('click', deleteAllItems);
+
+gaveUpBtn.addEventListener('click', makeWeekend);
