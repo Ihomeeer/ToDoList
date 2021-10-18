@@ -11,4 +11,4 @@ const colors = [
   "#BFF6AA",
 ]
 
-export default {colors};
+export default colors;

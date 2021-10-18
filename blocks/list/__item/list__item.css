@@ -1,7 +1,7 @@
 .list__item {
   width: 100%;
   min-height: 40px;
-  margin: 15px auto;
+  margin: 5px auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,7 +1,7 @@
 import colors from './utils/colors.js';
 import weekendPlans from './utils/weekendPlans.js';
 
-const elementsList = document.querySelector('.list');
+const elementsList = document.querySelector('.list__items');
 const textInput = document.querySelector('.input__field');
 const createBtn = document.querySelector('.input__create-button');
 
@@ -30,14 +30,14 @@ const createNewItem = (inp) => {
   addColorToItem(elementBody);
   // console.log(inp)
   // console.log(inp.value)
-  addTextToItem(elementText, inp.value);
+  addTextToItem(elementText, inp);
   makeDeleteItemBtn(elementBody);
   addElementToList(element, elementsList);
 }
 
 //Функция, создающая новый элемент в списке и очищающая инпут
 function addNewItem (inp) {
-  createNewItem(inp);
+  createNewItem(inp.value);
   clearTextInput(inp);
 }
 
@@ -53,7 +53,7 @@ const addTextToItem = (elem, source) => {
 
 //окраска фона элемента
 const addColorToItem = (elem) => {
-  elem.style.backgroundColor = colors.colors[getRandomFloat(0, 9)];
+  elem.style.backgroundColor = colors[getRandomFloat(0, 9)];
 }
 
 //Добавление элемента в список
@@ -87,12 +87,14 @@ const deleteAllItems = () => {
 
 //Добавление пунктов для прокрастинации для кнопки "Забить"
 
-// const makeWeekend = () => {
-//   deleteAllItems();
-//   for (let i=0; i<3; i++) {
-//     createNewItem(weekendPlans[i])
-//   }
-// }
+const makeWeekend = () => {
+  deleteAllItems();
+  for (let i=0; i<4; i++) {
+    setTimeout(() => {
+      createNewItem(weekendPlans[i]);
+    }, 200 * (i + 1))
+  }
+}
 
 
 //---------Слушатели---------

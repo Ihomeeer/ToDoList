@@ -1,6 +1,8 @@
 .list__item-name {
   margin: 0 10px;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 40px;
-  font-weight: normal;
+  font-family: "PTMono", Arial, sans-serif;
+  font-weight: 400;
+  color: #26282E;
 }
