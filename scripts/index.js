@@ -28,8 +28,6 @@ const createNewItem = (inp) => {
   const elementText = element.querySelector('.list__item-name');
   const elementBody = element.querySelector('.list__item');
   addColorToItem(elementBody);
-  // console.log(inp)
-  // console.log(inp.value)
   addTextToItem(elementText, inp);
   makeDeleteItemBtn(elementBody);
   addElementToList(element, elementsList);
@@ -37,8 +35,13 @@ const createNewItem = (inp) => {
 
 //Функция, создающая новый элемент в списке и очищающая инпут
 function addNewItem (inp) {
-  createNewItem(inp.value);
-  clearTextInput(inp);
+  if (inp.value) {
+    createNewItem(inp.value);
+    clearTextInput(inp);
+  } else {
+
+    return
+  };
 }
 
 //Функция очищения инпута
@@ -61,6 +64,7 @@ const addElementToList = (elem, list) => {
   list.prepend(elem);
 }
 
+//Задает функционал кнопкам удаления на каждом итеме
 const makeDeleteItemBtn = (elem) => {
   const elementDeleteBtn = elem.querySelector('.list__delete-button');
   elementDeleteBtn.addEventListener('click', () => {
@@ -68,7 +72,7 @@ const makeDeleteItemBtn = (elem) => {
   });
 }
 
-//Генератор рандомных чисел от 0 до 4 для цветов итемов в списке
+//Генератор рандомных чисел от 0 до 9 для цветов итемов в списке
 const getRandomFloat = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
