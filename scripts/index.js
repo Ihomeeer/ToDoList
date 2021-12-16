@@ -13,7 +13,7 @@ const gaveUpBtn = document.querySelector('.footer__gave-up-button');
 //---------Функции---------
 
 
-//получить разметку
+//  получить разметку
 const getItem = () => {
   const bulkItem = document.querySelector('.list__template')
   .content
@@ -22,7 +22,7 @@ const getItem = () => {
   return bulkItem;
 }
 
-//Создать новый элемент в списке
+//  Создать новый элемент в списке
 const createNewItem = (inp) => {
   const element = getItem();
   const elementText = element.querySelector('.list__item-name');
@@ -33,7 +33,7 @@ const createNewItem = (inp) => {
   addElementToList(element, elementsList);
 }
 
-//Функция, создающая новый элемент в списке и очищающая инпут
+//  Функция, создающая новый элемент в списке и очищающая инпут
 function addNewItem (inp) {
   if (inp.value) {
     createNewItem(inp.value);
@@ -44,27 +44,27 @@ function addNewItem (inp) {
   };
 }
 
-//Функция очищения инпута
+//  Функция очищения инпута
 const clearTextInput = (input) => {
   input.value = '';
 }
 
-//Передача текста из инпута в жлемент списка
+//  Передача текста из инпута в жлемент списка
 const addTextToItem = (elem, source) => {
   elem.textContent = source;
 }
 
-//окраска фона элемента
+//  окраска фона элемента
 const addColorToItem = (elem) => {
-  elem.style.backgroundColor = colors[getRandomFloat(0, 9)];
+  elem.style.backgroundColor = colors[getRandomFloat(0, 7)];
 }
 
-//Добавление элемента в список
+//  Добавление элемента в список
 const addElementToList = (elem, list) => {
   list.prepend(elem);
 }
 
-//Задает функционал кнопкам удаления на каждом итеме
+//  Задает функционал кнопкам удаления на каждом итеме
 const makeDeleteItemBtn = (elem) => {
   const elementDeleteBtn = elem.querySelector('.list__delete-button');
   elementDeleteBtn.addEventListener('click', () => {
@@ -77,7 +77,7 @@ const getRandomFloat = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//Удаление всех пунктов по нажатию на кнопку "Очистить"
+//  Удаление всех пунктов по нажатию на кнопку "Очистить"
 const deleteAllItems = () => {
   const items = document.querySelectorAll('.list__item');
   items.forEach(function(item, index) {
@@ -87,10 +87,13 @@ const deleteAllItems = () => {
       }, 100 * index
     );
   });
+  if (gaveUpBtn.disabled = true) {
+    gaveUpBtn.classList.remove('footer__gave-up-button_disabled');
+    gaveUpBtn.disabled = false;
+  }
 }
 
-//Добавление пунктов для прокрастинации для кнопки "Забить"
-
+//  Добавление пунктов для прокрастинации для кнопки "Забить"
 const makeWeekend = () => {
   deleteAllItems();
   for (let i=0; i<4; i++) {
@@ -98,6 +101,22 @@ const makeWeekend = () => {
       createNewItem(weekendPlans[i]);
     }, 200 * (i + 1))
   }
+  gaveUpBtn.disabled = true;
+  gaveUpBtn.classList.add('footer__gave-up-button_disabled');
+}
+
+//  Отключение кнопки "Очистить" при отсутствии объектов в списке дел
+const disableDeleteBtn = () => {
+  if (elementsList.childNodes.length == 0) {
+    console.log(elementsList.childNodes);
+    deleteAllBtn.classList.add('footer__delete-button_disabled');
+    deleteAllItems.disabled = true;
+  } else {
+    console.log(elementsList.childNodes);
+    deleteAllBtn.classList.remove('footer__delete-button_disabled');
+    deleteAllItems.disabled = false;
+  }
+
 }
 
 
@@ -109,3 +128,5 @@ createBtn.addEventListener('click', () => {
 deleteAllBtn.addEventListener('click', deleteAllItems);
 
 gaveUpBtn.addEventListener('click', makeWeekend);
+
+document.querySelector('body').addEventListener('click', disableDeleteBtn);

@@ -18,4 +18,5 @@
 @import url(../blocks/footer/__buttons/footer__buttons.css);
 @import url(../blocks/footer/__delete-button/footer__delete-button.css);
 @import url(../blocks/footer/__gave-up-button/footer__gave-up-button.css);
+@import url(../blocks/footer/__gave-up-button/_disabled/footer__gave-up-button_disabled.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
