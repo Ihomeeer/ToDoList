@@ -9,7 +9,7 @@
   <link rel="icon" href="#">
   <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="page">
+<body class="page page_type_light">
   <header class="header"></header>
   <main class="content">
     <section class="input">
@@ -28,8 +28,12 @@
   </main>
   <footer class="footer">
     <div class="footer__buttons">
-      <button type="delete" class="button button_type_red footer__delete-button">Очистить</button>
-      <button type="delete" class="button button_type_red footer__gave-up-button">Забить</button>
+      <button type="delete" class="button footer__delete-button">Очистить</button>
+      <button type="delete" class="button footer__gave-up-button">Забить</button>
+    </div>
+    <div class="footer__themes">
+      <p class="footer__text">&#9788;</p>
+      <input type="checkbox" id="switch" name="theme" /><label for="switch">Toggle</label>
     </div>
     <p class="footer__copyright">&#169; 2021 Mikhail Kirichkov</p>
   </footer>

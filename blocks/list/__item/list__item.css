@@ -1,9 +1,0 @@
-.list__item {
-  width: 100%;
-  min-height: 40px;
-  margin: 5px auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-radius: 10px;
-}

@@ -1,0 +1,235 @@
+html {
+  font-family: "PTMono", Arial, sans-serif;
+
+  --baseColor: #ffffff;
+  --buttonsColor: #94d37b;
+  --createButtonColor: #94d37b;
+  --disabledButtonsColor: #54614f7a;
+  --textColor: #26282E;
+  --inputTextColor: #26282E;
+  --elementColor: #8dfd831f;
+  --backgroundColor: rgba(131, 128, 128, 0.027);
+  --inputBorder: 3px solid #94d37b;
+}
+
+html[theme='dark'] {
+  --baseColor: #535151;
+  --buttonsColor: #0997f0de;
+  --disabledButtonsColor: #086faf46;
+  --textColor: #e0e0e0;
+  --inputTextColor: #e0e0e0;
+  --elementColor: #0977bb25;
+  --backgroundColor: rgba(131, 128, 128, 0.027);
+  --inputBorder: 3px solid transparent;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  background-color: var(--baseColor);
+}
+
+.input {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.input__create-button {
+  background-color: var(--buttonsColor);
+}
+
+.input__field {
+  width: 80%;
+  min-height: 50px;
+  padding: 0 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  border: none;
+  font-size: 26px;
+  line-height: 40px;
+  font-weight: normal;
+  outline: none;
+  color: var(--inputTextColor);
+  cursor: pointer;
+  border: var(--inputBorder);
+}
+
+.list__delete-button {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 40px;
+  color: var(--textColor);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.list__items {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+}
+
+.list__item {
+  width: 100%;
+  min-height: 40px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: var(--elementColor);
+}
+
+.list__item-name {
+  margin: 0 10px;
+  font-size: 24px;
+  line-height: 40px;
+  font-weight: 400;
+  color: var(--textColor);
+}
+
+.content {
+  max-width: 1280px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: var(--backgroundColor);
+  border-radius: 10px;
+}
+
+.button {
+  width: 200px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 40px;
+  color: var(--textColor);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: opacity, 0.3s;
+  background-color: var(--buttonsColor);
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.05, 1.05);
+  }
+}
+
+.footer {
+  max-width: 1280px;
+  min-height: 110px;
+  padding: 10px;
+  margin: 20px auto 10px;
+  background-color: var(--backgroundColor);
+  border-radius: 10px;
+}
+
+.footer__buttons {
+  width: 410px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer__copyright {
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--textColor);
+  text-align: center;
+}
+
+.footer__gave-up-button_disabled {
+  background-color: var(--disabledButtonsColor);
+  cursor: auto;
+}
+
+.footer__delete-button_disabled {
+  background-color: var(--disabledButtonsColor);
+  cursor: auto;
+}
+
+.footer__themes {
+  height: fit-content;
+  width: 20%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__text {
+  margin-right: 20px;
+  padding-bottom: 10px;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 400;
+  text-align: center;
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 52px;
+	height: 26px;
+	background: grey;
+	float: right;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: var(--buttonsColor);
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 45px;
+}
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 950ms !important;
+  transition-delay: 0 !important;
+  transition-timing-function: ease-in-out;
+}

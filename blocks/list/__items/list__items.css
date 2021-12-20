@@ -1,7 +1,0 @@
-.list__items {
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-}

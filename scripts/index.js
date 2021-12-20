@@ -1,4 +1,3 @@
-import colors from './utils/colors.js';
 import weekendPlans from './utils/weekendPlans.js';
 
 const elementsList = document.querySelector('.list__items');
@@ -8,6 +7,8 @@ const createBtn = document.querySelector('.input__create-button');
 const deleteAllBtn = document.querySelector('.footer__delete-button');
 
 const gaveUpBtn = document.querySelector('.footer__gave-up-button');
+
+const checkbox = document.querySelector('input[name=theme]');
 
 
 //---------Функции---------
@@ -27,7 +28,6 @@ const createNewItem = (inp) => {
   const element = getItem();
   const elementText = element.querySelector('.list__item-name');
   const elementBody = element.querySelector('.list__item');
-  addColorToItem(elementBody);
   addTextToItem(elementText, inp);
   makeDeleteItemBtn(elementBody);
   addElementToList(element, elementsList);
@@ -52,11 +52,6 @@ const clearTextInput = (input) => {
 //  Передача текста из инпута в жлемент списка
 const addTextToItem = (elem, source) => {
   elem.textContent = source;
-}
-
-//  окраска фона элемента
-const addColorToItem = (elem) => {
-  elem.style.backgroundColor = colors[getRandomFloat(0, 7)];
 }
 
 //  Добавление элемента в список
@@ -87,6 +82,8 @@ const deleteAllItems = () => {
       }, 100 * index
     );
   });
+  deleteAllBtn.classList.add('footer__delete-button_disabled');
+  deleteAllBtn.disabled = true;
   if (gaveUpBtn.disabled = true) {
     gaveUpBtn.classList.remove('footer__gave-up-button_disabled');
     gaveUpBtn.disabled = false;
@@ -107,16 +104,25 @@ const makeWeekend = () => {
 
 //  Отключение кнопки "Очистить" при отсутствии объектов в списке дел
 const disableDeleteBtn = () => {
-  if (elementsList.childNodes.length == 0) {
-    console.log(elementsList.childNodes);
+  const elementsCount = document.getElementsByClassName('list__item');
+  if (elementsCount.length == 0) {
     deleteAllBtn.classList.add('footer__delete-button_disabled');
-    deleteAllItems.disabled = true;
+    deleteAllBtn.disabled = true;
   } else {
-    console.log(elementsList.childNodes);
     deleteAllBtn.classList.remove('footer__delete-button_disabled');
-    deleteAllItems.disabled = false;
+    deleteAllBtn.disabled = false;
   }
+}
 
+
+
+//---------Работа с темами---------
+
+const makeTransition = () => {
+  document.documentElement.classList.add('transition');
+  window.setTimeout(() => {
+      document.documentElement.classList.remove('transition')
+  }, 1000)
 }
 
 
@@ -130,3 +136,14 @@ deleteAllBtn.addEventListener('click', deleteAllItems);
 gaveUpBtn.addEventListener('click', makeWeekend);
 
 document.querySelector('body').addEventListener('click', disableDeleteBtn);
+
+checkbox.addEventListener('change', function() {
+  if(this.checked) {
+    makeTransition()
+      document.documentElement.setAttribute('theme', 'dark')
+  } else {
+    makeTransition()
+      document.documentElement.setAttribute('theme', 'light')
+  }
+});
+
