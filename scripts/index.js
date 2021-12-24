@@ -49,7 +49,7 @@ const clearTextInput = (input) => {
   input.value = '';
 }
 
-//  Передача текста из инпута в жлемент списка
+//  Передача текста из инпута в элемент списка
 const addTextToItem = (elem, source) => {
   elem.textContent = source;
 }
@@ -65,11 +65,6 @@ const makeDeleteItemBtn = (elem) => {
   elementDeleteBtn.addEventListener('click', () => {
     elementDeleteBtn.closest('.list__item').remove();
   });
-}
-
-//Генератор рандомных чисел от 0 до 9 для цветов итемов в списке
-const getRandomFloat = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //  Удаление всех пунктов по нажатию на кнопку "Очистить"
@@ -123,6 +118,13 @@ const makeTransition = () => {
   window.setTimeout(() => {
       document.documentElement.classList.remove('transition')
   }, 1000)
+  if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', 'dark');
+  } else if (localStorage.getItem('theme') == 'light') {
+    localStorage.setItem('theme', 'dark');
+  } else if (localStorage.getItem('theme') == 'dark') {
+    localStorage.setItem('theme', 'light');
+  }
 }
 
 
@@ -146,4 +148,16 @@ checkbox.addEventListener('change', function() {
       document.documentElement.setAttribute('theme', 'light')
   }
 });
+
+const checkingCheckBox = () => {
+  if (localStorage.getItem('theme') == 'light') {
+    checkbox.setAttribute('checked', false);
+    document.documentElement.setAttribute('theme', 'light')
+  } else if (localStorage.getItem('theme') == 'dark') {
+    checkbox.setAttribute('checked', true);
+    document.documentElement.setAttribute('theme', 'dark')
+  }
+}
+
+document.addEventListener('DOMContentLoaded', checkingCheckBox);
 
