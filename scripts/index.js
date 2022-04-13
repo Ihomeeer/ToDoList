@@ -1,24 +1,17 @@
 import weekendPlans from './utils/weekendPlans.js';
-
 const elementsList = document.querySelector('.list__items');
 const textInput = document.querySelector('.input__field');
 const createBtn = document.querySelector('.input__create-button');
-
 const deleteAllBtn = document.querySelector('.footer__delete-button');
-
 const gaveUpBtn = document.querySelector('.footer__gave-up-button');
-
 const checkbox = document.querySelector('input[name=theme]');
 
-
 //---------Функции---------
-
-
 //  получить разметку
 const getItem = () => {
   const bulkItem = document.querySelector('.list__template')
-  .content
-  .cloneNode(true);
+    .content
+    .cloneNode(true);
 
   return bulkItem;
 }
@@ -34,12 +27,11 @@ const createNewItem = (inp) => {
 }
 
 //  Функция, создающая новый элемент в списке и очищающая инпут
-function addNewItem (inp) {
+function addNewItem(inp) {
   if (inp.value) {
     createNewItem(inp.value);
     clearTextInput(inp);
   } else {
-
     return
   };
 }
@@ -64,90 +56,83 @@ const makeDeleteItemBtn = (elem) => {
   const elementDeleteBtn = elem.querySelector('.list__delete-button');
   elementDeleteBtn.addEventListener('click', () => {
     elementDeleteBtn.closest('.list__item').remove();
+    disableDeleteBtn();
   });
+}
+
+//---------Работа с кнопками---------
+const deleteButtonDisabling = () => {
+  deleteAllBtn.classList.add('footer__delete-button_disabled');
+  deleteAllBtn.disabled = true;
+}
+
+const deleteButtonEnabling = () => {
+  deleteAllBtn.classList.remove('footer__delete-button_disabled');
+  deleteAllBtn.disabled = false;
+}
+
+const gaveUpButtonDisabling = () => {
+  gaveUpBtn.classList.add('footer__gave-up-button_disabled');
+  gaveUpBtn.disabled = true;
+}
+
+const gaveUpButtonEnabling = () => {
+  gaveUpBtn.classList.remove('footer__gave-up-button_disabled');
+  gaveUpBtn.disabled = false;
 }
 
 //  Удаление всех пунктов по нажатию на кнопку "Очистить"
 const deleteAllItems = () => {
   const items = document.querySelectorAll('.list__item');
-  items.forEach(function(item, index) {
+  items.forEach(function (item, index) {
     setTimeout(
       () => {
         item.remove(item);
       }, 100 * index
     );
   });
-  deleteAllBtn.classList.add('footer__delete-button_disabled');
-  deleteAllBtn.disabled = true;
   if (gaveUpBtn.disabled = true) {
-    gaveUpBtn.classList.remove('footer__gave-up-button_disabled');
-    gaveUpBtn.disabled = false;
+gaveUpButtonEnabling();
   }
 }
 
 //  Добавление пунктов для прокрастинации для кнопки "Забить"
 const makeWeekend = () => {
   deleteAllItems();
-  for (let i=0; i<4; i++) {
+  for (let i = 0; i < 4; i++) {
     setTimeout(() => {
       createNewItem(weekendPlans[i]);
     }, 200 * (i + 1))
   }
-  gaveUpBtn.disabled = true;
-  gaveUpBtn.classList.add('footer__gave-up-button_disabled');
+gaveUpButtonDisabling();
+  deleteButtonEnabling();
 }
 
 //  Отключение кнопки "Очистить" при отсутствии объектов в списке дел
 const disableDeleteBtn = () => {
   const elementsCount = document.getElementsByClassName('list__item');
-  if (elementsCount.length == 0) {
-    deleteAllBtn.classList.add('footer__delete-button_disabled');
-    deleteAllBtn.disabled = true;
+  if (elementsCount.length === 0) {
+    deleteButtonDisabling();
   } else {
-    deleteAllBtn.classList.remove('footer__delete-button_disabled');
-    deleteAllBtn.disabled = false;
+    deleteButtonEnabling();
   }
 }
-
-
 
 //---------Работа с темами---------
 
 const makeTransition = () => {
   document.documentElement.classList.add('transition');
   window.setTimeout(() => {
-      document.documentElement.classList.remove('transition')
+    document.documentElement.classList.remove('transition')
   }, 1000)
   if (!localStorage.getItem('theme')) {
-    localStorage.setItem('theme', 'dark');
+    localStorage.setItem('theme', 'light');
   } else if (localStorage.getItem('theme') == 'light') {
     localStorage.setItem('theme', 'dark');
   } else if (localStorage.getItem('theme') == 'dark') {
     localStorage.setItem('theme', 'light');
   }
 }
-
-
-//---------Слушатели---------
-createBtn.addEventListener('click', () => {
-  addNewItem(textInput);
-});
-
-deleteAllBtn.addEventListener('click', deleteAllItems);
-
-gaveUpBtn.addEventListener('click', makeWeekend);
-
-document.querySelector('body').addEventListener('click', disableDeleteBtn);
-
-checkbox.addEventListener('change', function() {
-  if(this.checked) {
-    makeTransition()
-      document.documentElement.setAttribute('theme', 'dark')
-  } else {
-    makeTransition()
-      document.documentElement.setAttribute('theme', 'light')
-  }
-});
 
 const checkingCheckBox = () => {
   if (localStorage.getItem('theme') == 'light') {
@@ -159,5 +144,29 @@ const checkingCheckBox = () => {
   }
 }
 
-document.addEventListener('DOMContentLoaded', checkingCheckBox);
+//---------Слушатели---------
 
+createBtn.addEventListener('click', () => {
+  addNewItem(textInput);
+});
+
+deleteAllBtn.addEventListener('click', () => {
+  deleteButtonDisabling();
+  deleteAllItems();
+});
+
+gaveUpBtn.addEventListener('click', makeWeekend);
+
+createBtn.addEventListener('click', disableDeleteBtn);
+
+checkbox.addEventListener('change', function () {
+  if (this.checked) {
+    makeTransition()
+    document.documentElement.setAttribute('theme', 'dark')
+  } else {
+    makeTransition()
+    document.documentElement.setAttribute('theme', 'light')
+  }
+});
+
+document.addEventListener('DOMContentLoaded', checkingCheckBox);
