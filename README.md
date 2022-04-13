@@ -11,7 +11,7 @@ _______________
 
 
 <p align="center">
-  <img src="screenshots/main_light.jpg" height="400" width="800"/>
+  <img src="screenshots/main_light.jpg" height="330" width="800"/>
   <img src="screenshots/main_dark.jpg" height="400" width="800"/>
 </p>
 ______
